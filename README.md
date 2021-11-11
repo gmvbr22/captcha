@@ -4,7 +4,9 @@
 
 ## Instalation
 
-Todo
+```bash
+go get -u github.com/gmvbr/captcha
+```
 
 ## Usage
 
