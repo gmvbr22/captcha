@@ -19,7 +19,7 @@ jobs:
         go-version: 1.17
 
     - name: Test
-      run: cd src && go test -coverprofile=coverage.out -covermode=atomic -v ./... 
+      run: go test -coverprofile=coverage.out -covermode=atomic -v ./... 
  
     - name: Upload coverage to Codecov
       run: bash <(curl -s https://codecov.io/bash)
