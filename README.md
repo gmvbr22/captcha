@@ -1,4 +1,7 @@
-# captcha/utils
+# captcha
+
+Verify hCaptcha token validity.
+
 
 [![Go](https://github.com/gmvbr/captcha/actions/workflows/go.yml/badge.svg)](https://github.com/gmvbr/captcha/actions/workflows/go.yml)
 
