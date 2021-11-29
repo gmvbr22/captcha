@@ -1,4 +1,4 @@
-package hcaptcha
+package captcha
 
 import (
 	"encoding/json"
@@ -45,17 +45,16 @@ func NewHCaptcha(secret string) *HCaptcha {
 }
 
 // for testing, update service url
-func (c *HCaptcha) UseProxy(url string) {
+func (c *HCaptcha) UpdateService(url string) {
 	c.url = url
 }
 
 func (c *HCaptcha) Verify(response string) (*HCaptchaResponse, error) {
 	data := new(HCaptchaResponse)
-	values := url.Values{
+	res, err := http.PostForm(c.url, url.Values{
 		"secret":   {c.secret},
 		"response": {response},
-	}
-	res, err := http.PostForm(c.url, values)
+	})
 	if err != nil {
 		return nil, err
 	}

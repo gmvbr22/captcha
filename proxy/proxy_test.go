@@ -1,4 +1,4 @@
-package hcaptcha_proxy
+package proxy
 
 import (
 	"encoding/json"

@@ -10,8 +10,31 @@ go get -u github.com/gmvbr/captcha
 
 ## Usage
 
-Todo
+```go
+package main
+
+import (
+    "github.com/gmvbr/captcha"  
+)
+
+func main() {
+
+    service := captcha.NewHCaptcha("hcaptcha secret")
+    result, err := service.Verify("enter site response")
+
+    if err != nil {
+        // handle errors
+    }
+
+    if result.Success == true {
+        // ok
+    } else {
+        // error captcha
+    }
+}
+
+```
 
 ## Testing
 
-Todo
+See tests in [captcha_test.go](captcha_test.go)
