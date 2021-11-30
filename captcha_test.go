@@ -7,27 +7,32 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+const (
+	SECRET     = "0x0000000000000000000000000000000000000000"
+	RESPONSE_1 = "20000000-aaaa-bbbb-cccc-000000000002"
+	RESPONSE_2 = "20000000-aaaa-bbbb-cccc-000000000003"
+)
+
 func handler(secret, response string) interface{} {
 	if response == "" {
 		return nil
 	}
-	if response == "20000000-aaaa-bbbb-cccc-000000000002" {
-		result := HCaptchaResponse{}
+	result := HCaptchaResponse{}
+	if response == RESPONSE_1 {
 		result.Success = true
 		return result
 	}
-	result := HCaptchaResponse{}
 	result.Success = false
 	return result
 }
 
 func TestHCaptcha(t *testing.T) {
 
-	captcha := NewHCaptcha("0x0000000000000000000000000000000000000000")
+	captcha := NewHCaptcha(SECRET)
 
 	// Invalid URL
-	captcha.UpdateService("#INVALID_URL")
-	response, err := captcha.Verify("20000000-aaaa-bbbb-cccc-000000000002")
+	captcha.UpdateService("")
+	response, err := captcha.Verify(RESPONSE_1)
 	assert.Error(t, err)
 	assert.Nil(t, response)
 
@@ -43,12 +48,12 @@ func TestHCaptcha(t *testing.T) {
 		response, err := captcha.Verify("20000000-aaaa-bbbb-cccc-000000000003")
 		assert.NoError(t, err)
 		assert.NotNil(t, response)
-		assert.Equal(t, false, response.Success)
+		assert.False(t, response.Success)
 
 		// Valid user
-		response, err = captcha.Verify("20000000-aaaa-bbbb-cccc-000000000002")
+		response, err = captcha.Verify(RESPONSE_1)
 		assert.NoError(t, err)
 		assert.NotNil(t, response)
-		assert.Equal(t, true, response.Success)
+		assert.True(t, response.Success)
 	})
 }
